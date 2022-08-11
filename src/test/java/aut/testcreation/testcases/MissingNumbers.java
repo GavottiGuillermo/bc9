@@ -9,23 +9,35 @@ public class MissingNumbers {
     public static List<Integer> missingNumbers(List<Integer> arr, List<Integer> brr) {
 
         List<Integer> resultado = new ArrayList<Integer>();
-        int contadorArr=0;
-        int contadorBrr=0;
+        List<Integer> procesados = new ArrayList<Integer>();
+
 
         for (int i=0; i<brr.size(); i++){
             Integer numbrrI=brr.get(i);
-            for(int j=0; j<brr.size(); j++){
-                Integer numbrrJ=brr.get(j);
-                if (numbrrI.compareTo(numbrrJ)==0){
-                    contadorBrr++;
-                }             }
-            for (int k=0; k<arr.size(); k++){
-                Integer numbrrK= arr.get(k);
-                if (numbrrI.compareTo(numbrrK)==0) {
-                    contadorArr++;
+            if (!procesados.contains(numbrrI)){
+
+                procesados.add(numbrrI);
+                int contadorArr=0;
+                int contadorBrr=0;
+
+                for(int j=0; j<brr.size(); j++){
+                    Integer numbrrJ=brr.get(j);
+                    if (numbrrI.compareTo(numbrrJ)==0){
+                        contadorBrr++;
+                    }
                 }
+                for (int k=0; k<arr.size(); k++){
+                    Integer numbrrK= arr.get(k);
+                    if (numbrrI.compareTo(numbrrK)==0) {
+                        contadorArr++;
+                    }
+                }
+
+                if (contadorBrr>contadorArr)resultado.add(brr.get(i));
             }
-            if (contadorBrr>contadorArr)resultado.add(brr.get(i));
+
+
+
 
         }
         Collections.sort(resultado);
